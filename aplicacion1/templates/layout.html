@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <!--Title de la páginas-->
+    <title>
+        {% block title %}
+            
+        {% endblock %}
+        | Agua Bendita SAS
+    
+    </title>
+      
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    
+</head>
+
+<body>
+    <!-- Cabecera de la página-->
+    <header>
+        <div id="logotipo">
+            <!--Logo AB-->
+            <img src="{% static 'images/logo.png' %}" />  
+            <h1>Portal Horarios</h1>
+        </div>
+        
+
+    </header>
+    <!--Menu principal-->
+    <nav>
+        <ul>
+            <li><a href="{% url 'index' %}">Inicio</a></li>
+            <li><a href="{% url 'tiendas' %}">Tiendas</a></li>
+        </ul>
+
+    </nav>
+    <!--Barra en 3d-->
+    <div class="barra">
+        <span class="esquina-izquierda"></span>
+        <span class="relleno-barra"></span>
+        <span class="esquina-derecha"></span>
+    </div>
+    <!--Contenido-->
+    <div id="content">
+        <div class="box">            
+            {% block content %}
+            
+
+            {% endblock %}
+        </div>
+    </div>
+    
+
+    <!--Pie de pagina-->
+    <footer>
+        Desarrollado por: &copy; Agua Bendita SAS - Fecha: {% now "d/m/Y" %}
+    </footer>
+</body>
+
+</html>

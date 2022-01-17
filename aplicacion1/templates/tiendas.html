@@ -1,0 +1,83 @@
+<!--Heredar la plantilla de Layout-->
+{% extends 'layout.html' %}
+
+<!--Heredar los bloques de la plantilla de Layout-->
+<!--Titulo para cada página-->
+{% block title %}
+    {{title}}
+{% endblock %}
+
+
+
+{% block content %}
+
+    
+    <h1 class="title">{{title}}</h1>
+
+    {% if form.errors %}
+        <strong class ="rojo">
+            Hay errores en el formulario        
+        </strong>
+
+
+    {% endif %}
+
+    <form action="{% url 'save-tienda' %}" method = "POST">
+        <!--Token necesario para metodo POST-->
+        {% csrf_token %}
+    
+        <!--Para meter etiquetas HTML en el form = form.as_p form.as_ul-->
+        {{ form }}
+            
+        <input type="submit" value="Guardar" />
+    </form>
+    </br>
+    
+    <br/>
+    <h1 class="title">{{title2}}</h1>
+
+    <!--Recorrer la consulta a la BD-->        
+    </br>     
+            
+    <table class="table-tiendas">
+        <thead>
+            <tr>                
+                <th>CO</th>                    
+                <th>Descripcion</th>                    
+                <th>Fecha Creacion</th>                
+                <th class="borrar">Borrar</th> 
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for tienda in tiendas %}
+                <tr>                        
+                    <td>
+                        <h4>{{tienda.co}}</h4>
+                    </td>
+                    <td>
+                        {{tienda.descripcion}}
+                    </td> 
+                    <td>   
+                        {{tienda.fecha_creacion}}
+                    </td>                                
+                    <td class="borrar">      
+                        <a class="btn btn-danger" href="{% url 'delete-tienda' co=tienda.co %}" aria-label="Delete">
+                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </a>
+                    </td>                    
+                </tr>
+            {% endfor %}
+        </tbody>              
+    </table> 
+    </br>
+    {% if messages %}
+        <div class="mensaje">
+        {% for message in messages %}    
+            <i class="fa fa-check fa-2x" aria-hidden="true"></i>               
+            <label for="guardado_si">{{message}}</label>
+        {% endfor %}    
+        </div> 
+    {% endif %}
+    
+{% endblock %}
